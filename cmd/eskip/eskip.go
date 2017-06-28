@@ -33,6 +33,7 @@ const (
 	reset  command = "reset"
 	delete command = "delete"
 	patch  command = "patch"
+	group  command = "group"
 	ver    command = "version"
 )
 
@@ -49,6 +50,7 @@ var commands = map[command]commandFunc{
 	reset:  resetCmd,
 	delete: deleteCmd,
 	patch:  patchCmd,
+	group:  groupCmd,
 	ver:    versionCmd}
 
 var (

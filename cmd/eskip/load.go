@@ -196,3 +196,37 @@ func patchCmd(a cmdArgs) error {
 
 	return nil
 }
+
+// command executed for print.
+func groupCmd(a cmdArgs) error {
+	lr, err := loadRoutes(a.in)
+	if err != nil {
+		return err
+	}
+
+	if printJson {
+		e := json.NewEncoder(stdout)
+		e.SetEscapeHTML(false)
+		if err := e.Encode(lr.routes); err != nil {
+			return err
+		}
+	} else {
+		for _, r := range lr.routes {
+			if perr, hasError := lr.parseErrors[r.Id]; hasError {
+				printStderr(r.Id, perr)
+			} else {
+				if r.Id == "" {
+					fmt.Fprintln(stdout, r.String())
+				} else {
+					fmt.Fprintf(stdout, "%s: %s;\n", r.Id, r.Print(pretty))
+				}
+			}
+		}
+	}
+
+	if len(lr.parseErrors) > 0 {
+		return invalidRouteExpression
+	}
+
+	return nil
+}

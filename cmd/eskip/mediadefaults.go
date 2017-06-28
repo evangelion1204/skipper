@@ -6,6 +6,7 @@ type defaultFunc func(cmdArgs) (cmdArgs, error)
 var commandToDefaultMediums = map[command]defaultFunc{
 	check:  defaultRead,
 	print:  defaultRead,
+	group:  defaultRead,
 	upsert: defaultWrite,
 	reset:  defaultWrite,
 	delete: defaultWrite,

@@ -41,6 +41,7 @@ const (
 var commandToValidations = map[command]validateSelectFunc{
 	check:  validateSelectRead,
 	print:  validateSelectRead,
+	group:  validateSelectRead,
 	upsert: validateSelectWrite,
 	reset:  validateSelectWrite,
 	delete: validateSelectDelete,
